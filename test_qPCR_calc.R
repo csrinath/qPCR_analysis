@@ -11,3 +11,6 @@ df <- file %>% makeFilePath() %>%
 
 plot(df$RQ.flex, df$RQ)
 
+df.mean <- summarizeData(df, RQ)
+df.mean.flex <- summarizeData(df, RQ.flex)
+
