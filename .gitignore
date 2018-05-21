@@ -4,3 +4,9 @@
 .Ruserdata
 .xls
 .txt
+
+README\.html
+
+data/
+
+\.DS_Store
