@@ -18,7 +18,7 @@ qPCR.sample.reader <- function(df, xlsSheet="Sample Setup", skipRows=42) {
 }
 
 # Reads Sample Data from the "Technical Analysis Result" or the "Results" sheet of data.xls
-qPCR.data.reader <- function(df) {
+qPCR.data.reader <- function(df, skipRows=42) {
   
   # Returns "Technical Analysis Result" or "Results" or "NA" depending on what sheet exists.
   excelSheet.checker <- function(df){
@@ -30,13 +30,13 @@ qPCR.data.reader <- function(df) {
   }
   
   # Reads in data from "Technical Analysis Result"
-  dataReader.TAR <- function(df, skipRows=42) {
+  dataReader.TAR <- function(df) {
     df  %>%
       read_excel(sheet = "Technical Analysis Result", skip = skipRows)
   }
   
   # Reads in data from "Results"
-  dataReader.Results <- function(df, skipRows=42) {
+  dataReader.Results <- function(df) {
     df  %>%
       read_excel(sheet = "Results", skip = skipRows)
   }
@@ -78,8 +78,8 @@ qPCR.data.reader <- function(df) {
   }
   
   xlsSheet <- excelSheet.checker(df)
-  if(xlsSheet == "Technical Analysis Result") return(df %>% dataReader.TAR %>% dataParser())
-  if(xlsSheet == "Results") return(df %>% dataReader.Results %>% dataParser())
+  if(xlsSheet == "Technical Analysis Result") return(df %>% dataReader.TAR() %>% dataParser())
+  if(xlsSheet == "Results") return(df %>% dataReader.Results() %>% dataParser())
   else stop("XLS file does not contain a 'Technical Analysis Result' or 'Results' tab")
 
 }
@@ -93,6 +93,7 @@ qPCR.file.reader <- function(df) {
     inner_join(unique(select(samples, Sample, Target, Biogroup)), by = c("Sample", "Target")) %>%
     group_by(Biogroup, Target) %>% 
     mutate(Replicate = row_number()) %>%    # Number the replicates
+    ungroup() %>%
     arrange(Target, Biogroup)
   return(fullData)
 }
