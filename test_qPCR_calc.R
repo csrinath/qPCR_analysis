@@ -5,12 +5,15 @@ source("R/qPCR_calc.R")
 file <- "data1.xls"
 df <- file %>% makeFilePath() %>% 
   qPCR.file.reader() %>% 
+  missingVal(Ct,40) %>%
   deltaCt("GAPDH") %>%
   deltaDeltaCt("Condition4") %>%
   calcRQ()
 
-plot(df$RQ.flex, df$RQ)
+# Check whether RQ and RQ.flex are the same
+plot(log(df$RQ.flex), log(df$RQ))
 
 df.mean <- summarizeData(df, RQ)
-df.mean.flex <- summarizeData(df, RQ.flex)
+df.mean.flex <- df %>% normalizeData(RQ.flex, "Condition4") %>% summarizeData(RQ.flex.normalized)
+
 
