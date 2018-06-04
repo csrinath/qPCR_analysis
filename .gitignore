@@ -10,3 +10,17 @@ README\.html
 data/
 
 \.DS_Store
+
+output/20180330_exp5/
+
+output/20180517_exp7/
+
+output/20180530_exp9/
+
+analysis_20180330_exp5\.R
+
+analysis_20180517_exp7\.R
+
+analysis_20180530_exp9\.R
+
+analysis_multiExperiment\.R
