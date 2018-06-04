@@ -8,7 +8,8 @@ deltaCt <- function(df, controlTarget) {
     mutate(Ct.control = Ct)
   
   df %>% 
-    inner_join(select(control.df, Biogroup, Sample, Ct.control),  by = c("Biogroup","Sample")) %>%
+    filter(Target != controlTarget) %>% 
+    inner_join(select(control.df, Replicate, Biogroup, Sample, Ct.control),  by = c("Biogroup","Sample","Replicate")) %>%
     mutate(deltaCt = Ct - Ct.control)
 }
 
