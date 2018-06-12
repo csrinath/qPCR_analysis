@@ -1,8 +1,9 @@
 source("R/pkgTest.R")
-pkgTest("tidyverse")
-pkgTest("cowplot")
-#theme_set(theme_cowplot(font_size=9))
-pkgTest("RColorBrewer")
+# pkgTest("tidyverse")
+# pkgTest("cowplot")
+# #theme_set(theme_cowplot(font_size=9))
+# pkgTest("RColorBrewer")
+pacman::p_load(tidyverse, cowplot, RColorBrewer, pheatmap)
 
 genePlot <- function(df, valName=RQ, nCol=1){
   valName <- deparse(substitute(valName))

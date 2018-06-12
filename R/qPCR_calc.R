@@ -1,6 +1,7 @@
 source("R/pkgTest.R")
-pkgTest("tidyverse")
-pkgTest("rlang")
+# pkgTest("tidyverse")
+# pkgTest("rlang")
+pacman::p_load(tidyverse, rlang)
 
 deltaCt <- function(df, controlTarget) {
   control.df <- df %>% 

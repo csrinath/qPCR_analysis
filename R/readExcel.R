@@ -1,7 +1,8 @@
 source("R/pkgTest.R")
-pkgTest("tidyverse")
-pkgTest("readxl")
-pkgTest("openxlsx")
+# pkgTest("tidyverse")
+# pkgTest("readxl")
+# pkgTest("openxlsx")
+pacman::p_load(tidyverse, readxl, openxlsx)
 
 # Makes the filepath "directory/filename". Default directory is data/
 makeFilePath <- function(fileName,directory="data") {
