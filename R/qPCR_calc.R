@@ -38,7 +38,8 @@ summarizeData <- function(df, col.name) {
 normalizeData <- function(df, col.name, controlBiogroup) {
   col.name = enquo(col.name)
   normFactor.name = sym(paste0(quo_name(col.name),".normFactor"))
-  normName = sym(paste0(quo_name(col.name),".normalized"))
+  # normName = sym(paste0(quo_name(col.name),".normalized"))
+  prenormName = sym(paste0(quo_name(col.name),".raw"))
   
   normFactor <- df %>% group_by(Target) %>%
     filter(Biogroup == controlBiogroup) %>%
@@ -46,7 +47,8 @@ normalizeData <- function(df, col.name, controlBiogroup) {
   
   df %>%
     inner_join(normFactor,  by = "Target")  %>%
-    mutate(!!normName := !!col.name/!!normFactor.name)
+    mutate(!!prenormName := !!col.name,
+           !!quo_name(col.name) := !!col.name/!!normFactor.name)
 }
 
 missingVal <- function(df, colName=Ct, newVal=40) {
